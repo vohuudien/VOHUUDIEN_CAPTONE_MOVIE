@@ -1,13 +1,16 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.bg-all {
+    background-image: url("https://static.vecteezy.com/ti/fotos-gratis/t2/1884546-abstract-grunge-decorative-blue-dark-wall-background-dark-blue-concrete-backgrounds-with-rough-texture-dark-wallpaper-space-for-text-use-for-decorative-design-web-page-banner-frames-wallpaper-gr%C3%A1tis-foto.jpg");
+    background-size: 300px;
+    
+
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
