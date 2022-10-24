@@ -8,7 +8,7 @@ import movieAPI from "apis/movieAPI.js";
 const Banner = () => {
   const { data: banners, isLoading, error } = useRequest(movieAPI.getBanners); 
   return (
-    <div className="bg-all mt-5 ">
+    <div className="bg-all mt-5">
       <Carousel>
         {banners?.map((banner) => {
         return (
