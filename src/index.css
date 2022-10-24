@@ -2,15 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body{
     margin: 0;
     padding: 0;
     font-family: sans-serif;
 }
 .bg-all {
-    background-image: url("https://static.vecteezy.com/ti/fotos-gratis/t2/1884546-abstract-grunge-decorative-blue-dark-wall-background-dark-blue-concrete-backgrounds-with-rough-texture-dark-wallpaper-space-for-text-use-for-decorative-design-web-page-banner-frames-wallpaper-gr%C3%A1tis-foto.jpg");
-    background-size: 300px;
+    background-image: url("https://wallpaperaccess.com/full/1858110.jpg");
+    background-size: 200px;
     
 
 }
 
+.Load {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  

@@ -11,8 +11,8 @@ const Header = () => {
 </svg>
 </a>
 <ul className="items-stretch hidden space-x-3 lg:flex">
-<li className="flex ">
-<a rel="noopener noreferrer" href="#" className="text-decoration-none flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:dark:text-violet-400 hover:dark:border-violet-400">Lịch Chiếu</a>
+<li className="flex">
+<a rel="noopener noreferrer" href="#" className="text-decoration-none flex text-white items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:dark:text-violet-400 hover:dark:border-violet-400">Lịch Chiếu</a>
 </li>
 <li className="flex">
 <a rel="noopener noreferrer" href="#" className="text-decoration-none flex items-center px-4 -mb-1 border-b-2 dark:border-transparent hover:dark:text-violet-400 hover:dark:border-violet-400">Cụm Rạp</a>
