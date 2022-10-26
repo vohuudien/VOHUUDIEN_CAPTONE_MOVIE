@@ -23,6 +23,18 @@ const movieAPI = {
                 maPhim: movieId
             }
         })
+    },
+    getCinema: ()=> {
+        return axiosClient.get(
+            "QuanLyRap/LayThongTinHeThongRap",
+            {params : {maNhom: "GP03"}}
+        )
+    },
+    getGroupCinema: (maRap)=> {
+        return axiosClient.get(
+            "QuanLyRap/LayThongTinCumRapTheoHeThong",
+            {params: {maHeThongRap: maRap }}
+        )
     }
 }
 

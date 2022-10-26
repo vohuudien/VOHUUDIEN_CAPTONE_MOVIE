@@ -21,7 +21,7 @@ const MovieShowing = () => {
   const goToMovie = (movieId) => {
     navigate(`/movie/${movieId}`);
   };
-  console.log(movies);
+
   return (
     <>
       <div className="d-flex justify-content-center container">

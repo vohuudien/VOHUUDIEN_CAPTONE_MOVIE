@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import "./index.css"
+import * as mdb from 'mdb-ui-kit';
+import { Input } from 'mdb-ui-kit';
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
