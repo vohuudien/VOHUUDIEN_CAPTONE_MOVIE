@@ -2,7 +2,7 @@ import { Avatar } from "@mui/material";
 const Header = () => {
   return (
     <>
-      <header className="text-gray-600 bg-light fixed-top body-font py-3 ">
+      <header className="text-gray-600 bg-light fixed-top body-font py-2 ">
         <div className="container mx-auto flex flex-wrap flex-col md:flex-row items-center">
           <a className="flex title-font font-medium items-center text-gray-900 md:mb-0 text-decoration-none">
             <Avatar

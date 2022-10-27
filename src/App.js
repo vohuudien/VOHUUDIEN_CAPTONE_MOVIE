@@ -5,6 +5,7 @@ import Loading from "react-fullscreen-loading";
 
 import "./index.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from "modules/Authentication/pages/Login";
 const Home = lazy(()=> import("./modules/Home/pages/Home"))
 const Movie = lazy(()=> import("./modules/Movie/pages/Movie"))
 
@@ -17,9 +18,9 @@ function App() {
       <Route path="/" element={<Home/>}/>
       {/* dynamic url */}
       <Route path="/movie/:movieId" element={<Movie/>}/>
-      {/* <Route path="checkout/:checkoutId" element={<CheckoutRoute><h1>Check Out Component</h1></CheckoutRoute>}/>
+      {/* <Route path="checkout/:checkoutId" element={<CheckoutRoute><h1>Check Out Component</h1></CheckoutRoute>}/> */}
       <Route path="/login" element={<Login/>}/>
-      <Route path="/register" element={<Register/>}/> */}
+      {/* <Route path="/register" element={<Register/>}/> */}
     </Routes>
     </Suspense>
     </>
