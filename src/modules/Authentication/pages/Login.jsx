@@ -1,4 +1,4 @@
-import { Button, Form, Input, notification } from "antd";
+import {  Form, Input, notification, Avatar } from "antd";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,7 +45,10 @@ const Login = () => {
 
 	return (
 		<div className="login">
-			<h1 className="login-title">HD MOVIE</h1>
+				<div className="d-flex justify-content-center align-items-center">
+					<Avatar size='large' src="https://thumbs.dreamstime.com/b/ben-letter-logo-design-black-background-ben-creative-initials-letter-logo-concept-ben-letter-design-ben-letter-logo-design-244471871.jpg"/>
+					<span className="ml-3 ms-2 text-xl fw-bold">Booking</span>
+				</div>
 			<Form
 				onFinish={handleSubmit(onSubmit)}
 				labelCol={{ span: 24 }}

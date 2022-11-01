@@ -125,12 +125,12 @@ const Header = () => {
 		<>
 			{/* desktop */}
 			<div className="header">
-				<div>
+				<div className="me-5">
 					<Avatar size='large' src="https://thumbs.dreamstime.com/b/ben-letter-logo-design-black-background-ben-creative-initials-letter-logo-concept-ben-letter-design-ben-letter-logo-design-244471871.jpg"/>
 					<span className="ml-3 text-xl fw-bold"> Booking</span>
 				</div>
 
-				<div className="menu">
+				<div className="menu ms-5">
 					<Link to="/">Trang Chủ</Link>
 					<a href="#showing">Lịch Chiếu</a>
 					<a href="#cinema">Cụm Rạp</a>

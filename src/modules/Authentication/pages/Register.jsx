@@ -1,4 +1,4 @@
-import { Button, Form, Input, notification } from "antd";
+import { Button, Form, Input, notification, Avatar } from "antd";
 import authAPI from "apis/authAPI";
 import useRequest from "hooks/useRequest";
 import { getUsers } from "modules/Admin/slices/userSlice";
@@ -49,7 +49,10 @@ const Register = () => {
 
 	return (
 		<div className="register">
-			<h1 className="register-title">HD MOVIE</h1>
+				<div className="d-flex justify-content-center align-items-center mb-3">
+					<Avatar size='large' src="https://thumbs.dreamstime.com/b/ben-letter-logo-design-black-background-ben-creative-initials-letter-logo-concept-ben-letter-design-ben-letter-logo-design-244471871.jpg"/>
+					<span className="ml-3 ms-2 text-xl fw-bold">Booking</span>
+				</div>
 
 			<Form
 				onFinish={handleSubmit(onSubmit)}
