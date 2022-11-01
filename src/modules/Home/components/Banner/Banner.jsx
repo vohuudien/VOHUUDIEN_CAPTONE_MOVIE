@@ -1,33 +1,114 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation, Autoplay } from "swiper";
+import { AiOutlineClose, AiOutlinePlayCircle } from "react-icons/ai";
+
+import movieAPI from "apis/movieAPI";
 import useRequest from "hooks/useRequest";
 
-import Carousel from 'react-bootstrap/Carousel';
-import movieAPI from "apis/movieAPI.js";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "./banner.scss";
+import { useState } from "react";
+
+import ReactPlayer from "react-player/lazy";
+import { HashLoader } from "react-spinners";
+
+const TRAILERS = [
+	"https://www.youtube.com/watch?v=uoKSzOuPcfY",
+	"https://www.youtube.com/watch?v=kBY2k3G6LsM&t",
+	"https://www.youtube.com/watch?v=geMkL-lv2-4&t",
+];
 
 const Banner = () => {
-  const { data: banners, isLoading, error } = useRequest(movieAPI.getBanners); 
-  return (
-    <div className="bg-all mt-5">
-      <Carousel>
-        {banners?.map((banner) => {
-        return (
-          <Carousel.Item key={banner.maBanner}>
-            <img
-            
-            className="container d-block p-5"
-              style={{maxWidth:"900px", maxHeight:"450px",minHeight:"300px"}}
-              
-              src={banner.hinhAnh}
-              alt={`banner-${banner.maBanner}`}
-            />
-          </Carousel.Item>
-        );
-      })}
-    </Carousel>
-      </div>
-  
-  );
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [video, setVideo] = useState("");
+	const [playVideo, setPlayVideo] = useState(false);
+
+	const showModal = (trailer) => {
+		setIsModalOpen(true);
+		setVideo(trailer);
+		setPlayVideo(true);
+	};
+
+	const closeModal = () => {
+		setIsModalOpen(false);
+		setVideo("");
+	};
+
+	const { data: banners, isLoading } = useRequest(movieAPI.getBanners);
+
+	const bannersMapped = banners?.map((banner, index) => {
+		return { ...banner, trailer: TRAILERS[index] };
+	});
+
+	return (
+		<div className="banner">
+			<Swiper
+				slidesPerView={1}
+				spaceBetween={30}
+				loop={true}
+				autoplay={{
+					delay: 5000,
+					disableOnInteraction: false,
+					pauseOnMouseEnter: true,
+				}}
+				pagination={{
+					clickable: true,
+				}}
+				navigation={true}
+				modules={[Autoplay, Pagination, Navigation]}
+				className="mySwiper"
+			>
+				{bannersMapped?.map((banner, index) => {
+					return (
+						<SwiperSlide key={index}>
+							<img src={banner.hinhAnh} alt={`banner-${banner.maBanner}`} className="container d-block p-5"  style={{maxWidth:"900px", maxHeight:"450px",minHeight:"300px"}}/>
+							<button
+								className="banner-icon-play"
+								onClick={() => showModal(banner.trailer)}
+							>
+								<AiOutlinePlayCircle />
+							</button>
+						</SwiperSlide>
+					);
+				})}
+			</Swiper>
+
+			<div style={{ display: isModalOpen ? "block" : "none" }} className="main">
+				<div className="banner-overlay" onClick={closeModal}></div>
+
+				<div className="banner-modal">
+					<div className="model-close" onClick={closeModal}>
+						<button>
+							<AiOutlineClose />
+						</button>
+					</div>
+					<ReactPlayer playing={playVideo} controls url={video} />
+				</div>
+			</div>
+
+			<div
+				style={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					height: "50px",
+				}}
+			>
+				<HashLoader
+					style={{
+						margin: "0 auto",
+						borderColor: "#fff",
+						display: "block",
+					}}
+					color={"red"}
+					loading={isLoading}
+					size={30}
+				/>
+			</div>
+		</div>
+	);
 };
 
 export default Banner;

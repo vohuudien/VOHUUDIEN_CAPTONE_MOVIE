@@ -1,23 +1,20 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
+import React from "react";
+import { useParams } from "react-router-dom";
+import { TitleFunction } from "utils/TitleFunction";
 
-
-import Overview from '../components/Overview'
-import Showtimes from '../components/Showtimes'
-
+import Overview from "../components/Overview";
+import Showtimes from "../components/Showtimes";
 
 const Movie = () => {
-    //useParams là hook để lấy giá trị params trên url
-    const {movieId} = useParams()
-    console.log(movieId);
+	const { movieId } = useParams();
+	TitleFunction("Movie Details");
 
-   
-  return (
-    <div>
-        <Overview movieId={movieId}/>
-        <Showtimes movieId={movieId}/>
-    </div>
-  )
-}
+	return (
+		<div>
+			<Overview movieId={movieId} />
+			<Showtimes movieId={movieId} />
+		</div>
+	);
+};
 
-export default Movie
+export default Movie;

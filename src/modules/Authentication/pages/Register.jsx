@@ -1,60 +1,198 @@
-import React from 'react'
-import {useForm} from 'react-hook-form'
-//data: taiKhoan, matKhau, email, hoTen, soDt
+import { Button, Form, Input, notification } from "antd";
+import authAPI from "apis/authAPI";
+import useRequest from "hooks/useRequest";
+import { getUsers } from "modules/Admin/slices/userSlice";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+import { TitleFunction } from "utils/TitleFunction";
+
+import "./register.scss";
 
 const Register = () => {
-    const {register, handleSubmit, formState: {errors}} =  useForm({
-        defaultValues: {
-            taiKhoan: "",
-            matKhau: "",
-            email: "",
-            hoTen: "",
-            soDt: "",
-        },
-        //chế độ kích hoạt Validation mặc định là onSubmit
-        mode: "onTouched"
-    })
+	TitleFunction("Register");
 
-    const onSubmit = (values) => {
-        console.log(values);
-    }
-    const onError = (error) => {
-        console.log(error)
-    }
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
-  return (
-    <div>
-        <h1>Register</h1>
-        <form onSubmit={handleSubmit(onSubmit,onError)}>
-            <div>
-                <input type="text" placeholder='Tài Khoản' {...register("taiKhoan", 
-                        { required: { value: true, message: "Tài khoản không được bỏ trống"},
-                          minLength: {value: 5, message: "Tài khoản phải từ 5 đến 20 ký tự"},
-                          maxLength: {value: 20, message: "Tài khoản phải từ 5 đến 20 ký tự"}
-                        }
-                    
-                    )}/>
-                {errors.taiKhoan && <p>{errors.taiKhoan.message}</p>}
-            </div>   
+	const { handleSubmit, control } = useForm({
+		defaultValues: {
+			taiKhoan: "",
+			matKhau: "",
+			email: "",
+			hoTen: "",
+			soDt: "",
+		},
+		mode: "onTouched",
+	});
 
+	const { data: handleRegister, isLoading } = useRequest(
+		(values) => authAPI.register(values),
+		{ isManual: true }
+	);
 
+	const onSubmit = async (values) => {
+		try {
+			await handleRegister(values);
+			await dispatch(getUsers()).unwrap();
+			swal("Đăng Ký Thành Công!", "You clicked the 'OK'!", "success");
+			navigate("/login");
+		} catch (error) {
+			notification.error({
+				message: "Đăng ký thất bại",
+				description: error,
+			});
+		}
+	};
 
-            <input type="text" placeholder='Mật Khẩu' {...register("matKhau", {required: true})}/>
-            <div>
-                <input type="text" placeholder='Email' {...register("email", 
-                        { required: { value: true, message: "Email không được bỏ trống"},
-                          pattern: {value:/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, message:"email không đúng định dạng" }
-                        }
-                    
-                    )}/>
-                {errors.email && <p>{errors.email.message}</p>}
-            </div>  
-            <input type="text" placeholder='Họ Tên' {...register("hoTen", {required: true})}/>
-            <input type="text" placeholder='Số Điện Thoại' {...register("soDt", {required: true})}/>
-            <button>Đăng ký</button>
-        </form>
-    </div>
-  )
-}
+	return (
+		<div className="register">
+			<h1 className="register-title">HD MOVIE</h1>
 
-export default Register
+			<Form
+				onFinish={handleSubmit(onSubmit)}
+				labelCol={{ span: 8 }}
+				wrapperCol={{ span: 16 }}
+			>
+				<Controller
+					name="taiKhoan"
+					control={control}
+					rules={{
+						required: {
+							value: true,
+							message: "Tài khoản không được để trống",
+						},
+					}}
+					render={({ field, fieldState: { error } }) => (
+						<Form.Item
+							label="Tài Khoản"
+							validateStatus={error ? "error" : ""}
+							help={error?.message}
+						>
+							<Input type="text" {...field} placeholder="Tài Khoản" />
+						</Form.Item>
+					)}
+				/>
+
+				<Controller
+					name="matKhau"
+					control={control}
+					rules={{
+						required: {
+							value: true,
+							message: "Mật khẩu không được để trống",
+						},
+						minLength: {
+							value: 4,
+							message: "Mật khẩu phải từ 4 đến 8 ký tự",
+						},
+						maxLength: {
+							value: 8,
+							message: "Mật khẩu phải từ 4 đến 8 ký tự",
+						},
+					}}
+					render={({ field, fieldState: { error } }) => (
+						<Form.Item
+							label="Mật Khẩu"
+							validateStatus={error ? "error" : ""}
+							help={error?.message}
+						>
+							<Input.Password
+								type="password"
+								{...field}
+								placeholder="Mật Khẩu"
+							/>
+						</Form.Item>
+					)}
+				/>
+
+				<Controller
+					name="email"
+					control={control}
+					rules={{
+						required: {
+							value: true,
+							message: "Email không được để trống",
+						},
+						pattern: {
+							value:
+								/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+							message: "Email không đúng định dạng",
+						},
+					}}
+					render={({ field, fieldState: { error } }) => (
+						<Form.Item
+							label="Email"
+							validateStatus={error ? "error" : ""}
+							help={error?.message}
+						>
+							<Input type="text" {...field} placeholder="Email" />
+						</Form.Item>
+					)}
+				/>
+
+				<Controller
+					name="hoTen"
+					control={control}
+					rules={{
+						required: {
+							value: true,
+							message: "Họ tên không được để trống",
+						},
+					}}
+					render={({ field, fieldState: { error } }) => (
+						<Form.Item
+							label="Họ Tên"
+							validateStatus={error ? "error" : ""}
+							help={error?.message}
+						>
+							<Input type="text" {...field} placeholder="Họ Tên" />
+						</Form.Item>
+					)}
+				/>
+
+				<Controller
+					name="soDt"
+					control={control}
+					rules={{
+						required: {
+							value: true,
+							message: "Số điện thoại không được để trống",
+						},
+					}}
+					render={({ field, fieldState: { error } }) => (
+						<Form.Item
+							label="Số Điện Thoại"
+							validateStatus={error ? "error" : ""}
+							help={error?.message}
+						>
+							<Input type="text" {...field} placeholder="Số Điện Thoại" />
+						</Form.Item>
+					)}
+				/>
+
+				<>
+					<Button
+						block
+						className="reg-button"
+						type="primary"
+						htmlType="submit"
+						disabled={isLoading}
+						loading={isLoading}
+					>
+						Đăng Ký
+					</Button>
+					<div>
+						<Link to="/login" type="primary">
+							Bạn đã có tài khoản? Đăng nhập
+						</Link>
+					</div>
+				</>
+			</Form>
+		</div>
+	);
+};
+
+export default Register;

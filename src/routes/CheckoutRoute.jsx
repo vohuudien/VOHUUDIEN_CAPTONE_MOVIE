@@ -1,15 +1,16 @@
-import { Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import swal from "sweetalert";
 
-const CheckoutRoute = ({children}) => {
-    //Logic kiểm tra xem user có được truy cập vào route hay không
-    const user = JSON.parse(localStorage.getItem("user"))
+const CheckoutRoute = ({ children }) => {
+	const { user } = useSelector((state) => state.auth);
 
-    //Chưa đăng nhập, điều hướng về trang login
-    if(!user){
-        return <Navigate to="/login"/>
-    }
+	if (!user) {
+		swal("Vui lòng đăng nhập để đặt vé!", "You clicked the button!", "warning");
+		return <Navigate to="/login" />;
+	}
 
-  return children
-}
+	return children;
+};
 
-export default CheckoutRoute
+export default CheckoutRoute;

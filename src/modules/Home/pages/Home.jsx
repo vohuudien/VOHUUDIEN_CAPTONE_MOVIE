@@ -1,19 +1,22 @@
+import GoToTop from "components/Scroll/GoToTop";
+import React from "react";
+import { TitleFunction } from "utils/TitleFunction";
 import Banner from "../components/Banner";
 import Cinema from "../components/Cinema";
-import MovieShowing from "../components/MovieShowing";
-import Header from "components/Header";
-import Footer from "components/Footer";
+import Showing from "../components/Showing";
 
 const Home = () => {
-  return (
-    <div className="bg-all">
-      <Header />
-      <Banner />
-      <MovieShowing />
-      <Cinema/>
-      <Footer />
-    </div>
-  );
+	TitleFunction("Movie");
+
+	return (
+		<div className="bg-all pb-5">
+			<Banner />
+			<Showing />
+			<Cinema />
+			
+			<GoToTop />
+		</div>
+	);
 };
 
 export default Home;

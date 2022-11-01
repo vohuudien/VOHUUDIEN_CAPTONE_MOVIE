@@ -1,41 +1,60 @@
-import axiosClient from "./axiosClient"
+import axiosClient from "./axiosClient";
 
 const movieAPI = {
-    getMovies: () =>{
-        return axiosClient.get(
-            "QuanLyPhim/LayDanhSachPhim",
-            {params : {maNhom: "GP03"}}
-        )
-    },
-    getBanners: ()=>{
-        return axiosClient.get("QuanLyPhim/LayDanhSachBanner")
-    },
-    getMovieDetails: (movieId)=>{
-        return axiosClient.get("QuanLyPhim/LayThongTinPhim",{
-            params: {
-                maPhim: movieId
-            }
-        })
-    },
-    getCinemaOfMovie: (movieId)=> {
-        return axiosClient.get("QuanLyRap/LayThongTinLichChieuPhim",{
-            params: {
-                maPhim: movieId
-            }
-        })
-    },
-    getCinema: ()=> {
-        return axiosClient.get(
-            "QuanLyRap/LayThongTinHeThongRap",
-            {params : {maNhom: "GP03"}}
-        )
-    },
-    getGroupCinema: (maRap)=> {
-        return axiosClient.get(
-            "QuanLyRap/LayThongTinCumRapTheoHeThong",
-            {params: {maHeThongRap: maRap }}
-        )
-    }
-}
+	getBanners: () => {
+		return axiosClient.get("QuanLyPhim/LayDanhSachBanner");
+	},
 
-export default movieAPI
+	getMovies: (search) => {
+		if (search !== "") {
+			return axiosClient.get("QuanLyPhim/LayDanhSachPhim", {
+				params: {
+					maNhom: "GP03",
+					tenPhim: search,
+				},
+			});
+		}
+		return axiosClient.get("QuanLyPhim/LayDanhSachPhim", {
+			params: {
+				maNhom: "GP03",
+			},
+		});
+	},
+
+	getMovieDetails: (movieId) => {
+		return axiosClient.get("QuanLyPhim/LayThongTinPhim", {
+			params: {
+				maPhim: movieId,
+			},
+		});
+	},
+
+	addMovie: (movie) => {
+		const formData = new FormData();
+		for (let key in movie) {
+			formData.append(key, movie[key]);
+		}
+		formData.append("maNhom", "GP03");
+
+		return axiosClient.post("QuanLyPhim/ThemPhimUploadHinh", formData);
+	},
+
+	deleteMovie: (movieId) => {
+		return axiosClient.delete("QuanLyPhim/XoaPhim", {
+			params: {
+				maPhim: movieId,
+			},
+		});
+	},
+
+	updateMovie: (movie) => {
+		const formData = new FormData();
+		for (let key in movie) {
+			formData.append(key, movie[key]);
+		}
+		formData.append("maNhom", "GP03");
+		return axiosClient.post("QuanLyPhim/CapNhatPhimUpload", formData);
+	},
+};
+
+export default movieAPI;

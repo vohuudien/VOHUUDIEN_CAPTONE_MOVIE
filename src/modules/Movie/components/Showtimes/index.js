@@ -1,1 +1,1 @@
-export {default} from "./Showtimes"
+export { default } from "./Showtimes";
