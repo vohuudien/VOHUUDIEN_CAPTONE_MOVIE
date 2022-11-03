@@ -77,8 +77,10 @@ const AdminLayout = () => {
 					onCollapse={(value) => setCollapsed(value)}
 				>
 					<div style={{ opacity: collapsed ? 0 : 1 }} className="logo-admin">
-						<h1 className="logo-movie">HD MOVIE</h1>
-					</div>
+					
+					<Avatar size='large' src="https://thumbs.dreamstime.com/b/ben-letter-logo-design-black-background-ben-creative-initials-letter-logo-concept-ben-letter-design-ben-letter-logo-design-244471871.jpg"/>
+					<span className="ml-3 text-xl text-white fw-bold"> Booking</span>
+				</div>
 
 					<Menu
 						defaultSelectedKeys={["sub1"]}
